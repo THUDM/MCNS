@@ -1,9 +1,14 @@
 # MCNS
 
 Implemetation of "MCNS", Understanding Negative Sampling in Graph Representation Learning.
+
 Understanding Negative Sampling in Graph Representation Learning.
+
 Zhen Yang*, Ming Ding*, Chang Zhou, Hongxia Yang, Jingren Zhou, Jie Tang.
+
 In KDD 2020 (Research Track)
+
+
 ## Introduction
 MCNS is a novel negative sampling strategy for graph embedding learning, which approximates the positive distribution with self-contrast approximation and accelerates negative sampling by Metropolis-Hastings. The experimental results demonstrate its robustness and superiorities.
 
