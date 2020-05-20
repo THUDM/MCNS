@@ -10,7 +10,7 @@ In KDD 2020 (Research Track)
 
 
 ## Introduction
-MCNS is a novel negative sampling strategy for graph embedding learning, which approximates the positive distribution with self-contrast approximation and accelerates negative sampling by Metropolis-Hastings. The experimental results demonstrate its robustness and superiorities.
+We systematically analyze the role of negative sampling from the perspectives of both objective and risk, and quantify that the negative sampling distribution should be positively but sub-linearly correlated to their positive sampling distribution. With the guidance of the theory, we propose MCNS, approximating the positive distribution with self-contrast approximation and accelerating negative sampling by Metropolis-Hastings. 
 
 ## Preparation
 * Python 3.7
@@ -34,10 +34,4 @@ if you want to train MCNS on your own dataset, you should prepare the following 
 * Amazon contains 192,403 users, 63,001 items and 1,689,188 edges.
 * Alibaba contains 106,042 users, 53591 items and 907,470 edges.
 
-## Performance 
-The performance of MCNS on recommendation task with ML-100K, Amazon and Alibaba are tested:
-
-  Metrics| ML-100k  | Amazon | Alibaba 
- ---- | ----- | ------  | ------  
- MRR  | 0.114 | 0.108  | 0.116 
- Hits@30  | 0.413 | 0.386  | 0.387 
+## Cite
