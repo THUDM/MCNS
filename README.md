@@ -1,10 +1,11 @@
 # MCNS
 
-Implemetation of "MCNS", Understanding Negative Sampling in Graph Representation Learning.
+Implemetation of "MCNS": Understanding Negative Sampling in Graph Representation Learning.
 
 Understanding Negative Sampling in Graph Representation Learning.
 
-Zhen Yang*, Ming Ding*, Chang Zhou, Hongxia Yang, Jingren Zhou, Jie Tang.
+Zhen Yang*, Ming Ding*, Chang Zhou, Hongxia Yang, Jingren Zhou, Jie Tang. (*These authors contributed equally to this work.)
+Zhen Yang†∗, Ming Ding†∗, Chang Zhou‡, Hongxia Yang‡, Jingren Zhou‡, Jie Tang†
 
 In KDD 2020 (Research Track)
 
