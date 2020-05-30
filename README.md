@@ -35,7 +35,7 @@ if you want to train MCNS on your own dataset, you should prepare the following 
 * Alibaba contains 106,042 users, 53591 items and 907,470 edges.
 
 ## Acknowledgement
-The trainable encoder of our code is based on GraphSAGE.
+The trainable encoder of our code is based on [GraphSAGE](https://github.com/williamleif/GraphSAGE).
 
 ## Cite
 
