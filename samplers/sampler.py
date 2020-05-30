@@ -15,8 +15,6 @@ def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N
     distribution = [0.01] * 100
     # distribution = norm.pdf(np.arange(0,100,1), 50, 10)
     # distribution = norm.pdf(np.arange(0,100,1), 0, 50)
-    # distribution = norm.pdf(np.arange(0,100,1), 100, 100)
-    # distribution = norm.pdf(np.arange(0,100,1), 50, 100)
     distribution = [i/np.sum(distribution) for i in distribution]
     
     if start_given is None:
