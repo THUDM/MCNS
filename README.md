@@ -34,5 +34,8 @@ if you want to train MCNS on your own dataset, you should prepare the following 
 * Amazon contains 192,403 users, 63,001 items and 1,689,188 edges.
 * Alibaba contains 106,042 users, 53591 items and 907,470 edges.
 
+## Acknowledgement
+The trainable encoder of our code is based on GraphSAGE.
+
 ## Cite
 
