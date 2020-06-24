@@ -123,3 +123,4 @@ class EdgeMinibatchIterator(object):
                                                   len(node_list))]
         val_edges = [(n, n) for n in val_nodes]
         return self.batch_feed_dict_embeddings(val_edges), (iter_num + 1) * size >= len(node_list), val_edges
+

@@ -2,8 +2,7 @@ from __future__ import print_function, absolute_import, division
 import tensorflow as tf
 import argparse
 import os
-from models.graphsage import Graphsage, UniformNeighborSampler, SAGEInfo
-from models.deepwalk import Deepwalk
+from models.gcn import GCN
 from load_data import *
 from models.minibatch import EdgeMinibatchIterator 
 import random
@@ -67,7 +66,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def save_embeddings(sess, model, minibatch_iter, size, out_dir, mod=""):
+def save_embeddings(sess, model, minibatch_iter, size, support, feats, placeholders, out_dir, mod=""):
     embeddings_u = []
     embeddings_v = []
     finished = False
@@ -81,6 +80,8 @@ def save_embeddings(sess, model, minibatch_iter, size, out_dir, mod=""):
 
     while not finished:
         feed_dict, finished, edges = minibatch_iter.incremental_embed_feed_dict(size, iter_num)
+        feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
+        feed_dict.update({placeholders['feats']: (feats[0], feats[1], feats[2])})
         iter_num += 1
         outs = sess.run([model.outputs1, model.outputs2], feed_dict=feed_dict)
         for i, edge in enumerate(edges):
@@ -105,14 +106,15 @@ def save_embeddings(sess, model, minibatch_iter, size, out_dir, mod=""):
     with open(out_dir + name2 + mod + ".txt", "w") as fp:
         fp.write("\n".join(map(str, nodes2)))
 
-
-def evaluate(sess, model, placeholders, minibatch_iter, candidates, q_1_dict, N_steps, N_negs, valid_data, size=None):
+def evaluate(sess, model, placeholders, minibatch_iter, candidates, q_1_dict, N_steps, N_negs, valid_data, support, feats, size=None):
     t_test = time.time()
     feed_dict_val, node1, node2 = minibatch_iter.val_feed_dict(valid_data, size)
     start_given = None
-    neg_examples = negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args)
+    neg_examples = negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args, support, feats, placeholders)
     feed_dict_val.update({placeholders['batch3']: neg_examples})
     feed_dict_val.update({placeholders['batch4']: size})
+    feed_dict_val.update({placeholders['support'][i]: support[i] for i in range(len(support))})
+    feed_dict_val.update({placeholders['feats']: (feats[0], feats[1], feats[2])})
     outs_val = sess.run([model.loss, model.ranks, model.mrr],
                     feed_dict=feed_dict_val)
     return outs_val[0], outs_val[1], outs_val[2], (time.time() - t_test)
@@ -120,15 +122,17 @@ def evaluate(sess, model, placeholders, minibatch_iter, candidates, q_1_dict, N_
 
 def train(G, train_data, valid_data, test_data, args):
     # read data 
-    features = None 
     nodes_all = args.user_num + args.item_num
     id_map = construct_id_map(nodes_all)
-    vocab_size = len(id_map.values())
+    feats = preprocess_features(nodes_all)
+    num_supports = 1
     placeholders = {
         'batch1': tf.placeholder(tf.int32, shape=(None), name='batch1'),
         'batch2': tf.placeholder(tf.int32, shape=(None), name='batch2'),
         'batch3': tf.placeholder(tf.int32, shape=(None), name='batch3'),
         'batch4': tf.placeholder(tf.int32, shape=(None), name='batch4'),
+        'feats':tf.sparse_placeholder(tf.float32),
+        'support': [tf.sparse_placeholder(tf.float32) for _ in range(num_supports)],
         'dropout': tf.placeholder_with_default(0., shape=(), name='dropout'),
         'batch_size': tf.placeholder(tf.int32, name='batch_size'),
     }
@@ -139,33 +143,22 @@ def train(G, train_data, valid_data, test_data, args):
                                       max_degree=args.max_degree,
                                       context_pairs=context_pairs)
     
+    adjs = load_adj(train_data, nodes_all)
+    support = [preprocess_adj(adjs)]
     adj_info_ph = tf.placeholder(tf.int32, shape=minibatch.adj.shape)
     adj_info = tf.Variable(adj_info_ph, trainable=False, name="adj_info")
     
     print("build model....")
-    if args.model == 'graphsage_mean':
-        # neighbors sampling
-        sampler = UniformNeighborSampler(adj_info)
-        # two layers sampling information
-        layer_infos = [SAGEInfo("node", sampler, args.samples_1, args.dim_1),
-                    SAGEInfo("node", sampler, args.samples_2, args.dim_2)]
-        model = Graphsage(placeholders,
-                            features,
-                            adj_info,
-                            args.learning_rate,
-                            layer_infos=layer_infos,
-                            model_size=args.model_size,
-                            identity_dim=args.identity_dim,
-                            args=args,
-                            logging=True) 
-    elif args.model == 'deepwalk':
-        model = Deepwalk(placeholders,
-                    vocab_size,
-                    embedding_dim=args.dim,
-                    lr=args.learning_rate)
+    if args.input == './data/ml-100k/':
+        model = GCN(placeholders, 
+                input_dim=feats[2][1],
+                embedding_dim=args.dim,
+                lr=args.learning_rate,
+                args=args,
+                logging=True)
     else:
-        raise Exception('Error: model name unrecognized')
-
+        raise Exception('Error: data cannot evaluated')
+    
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
@@ -205,26 +198,29 @@ def train(G, train_data, valid_data, test_data, args):
                 start_given = None
             else:
                 start_given = generate_examples
-            generate_examples = negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args)
+            generate_examples = negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args, support, feats, placeholders)
 
             # update model params
-            feed_dict={model.inputs1:node1, model.inputs2:node2, model.neg_samples:generate_examples, model.batch_size:args.batch_size, model.number: args.batch_size}
+
+            feed_dict={model.inputs1:node1, model.inputs2:node2, model.neg_samples:generate_examples, model.batch_size:args.batch_size, model.number: args.batch_size, model.inputs:(feats[0], feats[1], feats[2])}
+            feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
             outs = sess.run([model.merged_loss, model.merged_mrr, model.loss, model.mrr, model.opt_op, model.outputs1, model.outputs2, model.neg_outputs], feed_dict=feed_dict) 
-           
+
             # add_summary for tensorboard show
             if it % args.print_step == 0:
                 summary_writer.add_summary(outs[0], epoch *  data_loader.num_batch + it)
                 summary_writer.add_summary(outs[1], epoch *  data_loader.num_batch + it)
             if it % args.validate_iter == 0:
                 t2 = time.time()
-                val_cost, ranks, val_mrr, duration = evaluate(sess, model, placeholders, minibatch, candidates, q_1_dict, N_steps, N_negs, valid_data, size=args.validate_batch_size)
+                val_cost, ranks, val_mrr, duration = evaluate(sess, model, placeholders, minibatch, candidates, q_1_dict, N_steps, N_negs, valid_data, support, feats, size=args.validate_batch_size)
                 print("evaluate time", time.time() - t2)
             if it % args.print_step == 0:
                 print("model model", "Iter:", '%04d' % it, "d_loss=", "{:.5f}".format(outs[2]), "d_mrr=","{:.5f}".format(outs[3]))
                 print("validation model", "Iter:", '%04d' % it, "val_loss=", "{:.5f}".format(val_cost), "val_mrr=","{:.5f}".format(val_mrr))
         
         # validation for early stopping......
-        val_cost, ranks, val_mrr, duration = evaluate(sess, model, placeholders, minibatch, candidates, q_1_dict, N_steps, N_negs, valid_data, size=args.validate_batch_size)
+        val_cost, ranks, val_mrr, duration = evaluate(sess, model, placeholders, minibatch, candidates, q_1_dict, N_steps, N_negs, valid_data, support, feats, size=args.validate_batch_size)
+
         curr_mrr = val_mrr
         if curr_mrr > best_mrr:
             best_mrr = curr_mrr
@@ -236,7 +232,7 @@ def train(G, train_data, valid_data, test_data, args):
                 break
 
     # save model embeddings for downstream task
-    save_embeddings(sess, model, minibatch, args.validate_batch_size, args.save_dir)
+    save_embeddings(sess, model, minibatch, args.validate_batch_size, support, feats, placeholders, args.save_dir)
     print("training complete......") 
 
     # test for recommendation......

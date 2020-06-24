@@ -6,7 +6,10 @@ from collections import defaultdict
 import copy
 import random
 import networkx as nx
-
+import scipy.sparse as sp
+from scipy.sparse.linalg.eigen.arpack import eigsh
+from scipy.sparse import csr_matrix
+from scipy import sparse
 
 class Data_Loader():
     def __init__(self, batch_size):
@@ -167,3 +170,81 @@ def load_test_neg(train_data, valid_data, test_data, args):
     return ll
 
 
+def sparse_to_tuple(sparse_mx):
+    """Convert sparse matrix to tuple representation."""
+    def to_tuple(mx):
+        if not sp.isspmatrix_coo(mx):
+            mx = mx.tocoo()
+        coords = np.vstack((mx.row, mx.col)).transpose()
+        values = mx.data
+        shape = mx.shape
+        return coords, values, shape
+
+    if isinstance(sparse_mx, list):
+        for i in range(len(sparse_mx)):
+            sparse_mx[i] = to_tuple(sparse_mx[i])
+    else:
+        sparse_mx = to_tuple(sparse_mx)
+
+    return sparse_mx
+
+def preprocess_features(nodes):
+    """Row-normalize feature matrix and convert to tuple representation"""
+    node = list(range(nodes))
+    row = np.array([i for i in node])
+    col = np.array([i for i in node])
+    data = np.array([1.0 for i in node])
+    a = csr_matrix((data, (row,col)), shape=(len(node), len(node)), dtype=np.float32).toarray()
+    features = sparse.csr_matrix(a) 
+    rowsum = np.array(features.sum(1))
+    r_inv = np.power(rowsum, -1).flatten()
+    r_inv[np.isinf(r_inv)] = 0.
+    r_mat_inv = sp.diags(r_inv)
+    features = r_mat_inv.dot(features)
+    return sparse_to_tuple(features)
+
+
+
+def normalize_adj(adj):
+    """Symmetrically normalize adjacency matrix."""
+    adj = sp.coo_matrix(adj)
+    rowsum = np.array(adj.sum(1))
+    d_inv_sqrt = np.power(rowsum, -0.5).flatten()
+    d_inv_sqrt[np.isinf(d_inv_sqrt)] = 0.
+    d_mat_inv_sqrt = sp.diags(d_inv_sqrt)
+    return adj.dot(d_mat_inv_sqrt).transpose().dot(d_mat_inv_sqrt).tocoo()
+
+
+def preprocess_adj(adj):
+    """Preprocessing of adjacency matrix for simple GCN model and conversion to tuple representation."""
+    adj_normalized = normalize_adj(adj + sp.eye(adj.shape[0]))
+    return sparse_to_tuple(adj_normalized)
+
+
+def load_adj(train_data, node_num):
+    dd = defaultdict(set)
+    graph = defaultdict(list)
+    for edge in train_data:
+        node1 = edge[0]
+        node2 = edge[1]
+        dd[node1].add(node2)
+        dd[node2].add(node1)
+    a = sorted(dd.items(), key=lambda x: int(x[0]))
+    iter = 0
+    for x in a:
+        if iter == int(x[0]):
+            for id in x[1]:
+                graph[int(x[0])].append(int(id))
+        else:
+            flag = int(x[0]) - iter
+            for j in list(range(flag)):
+                graph[j + iter].append(j+iter)
+            for i in x[1]:
+                graph[int(x[0])].append(int(i))
+            iter = iter + flag
+        iter += 1
+    if iter < node_num:
+        for i in list(range(node_num - iter)):
+            graph[iter].append(iter)
+    adj = nx.adjacency_matrix(nx.from_dict_of_lists(graph))
+    return adj

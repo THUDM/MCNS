@@ -32,7 +32,7 @@ def metric(test_edges, negatives, user_embeds, item_embeds, args=None):
     HITS_30 = hit30_tot /count
     return MRR, HITS_30
 
-def recommend(train_data, valid_data, test_data, args):
+def recommend(train_data, valid_data, test_data,  args):
     print("loading embedding...")
     embeds_u = np.load(args.save_dir + "/embedding_u.npy")
     test_embeds_u = load_test_embedding(args.save_dir + "/embedding_u.txt", embeds_u)

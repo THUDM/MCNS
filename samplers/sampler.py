@@ -11,10 +11,12 @@ def get_length(walks):
         length += len(walks[key])
     return length
 
-def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args):
+def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N_negs, node1, node2, args, support=None, feats=None, placeholders=None):
     distribution = [0.01] * 100
     # distribution = norm.pdf(np.arange(0,100,1), 50, 10)
     # distribution = norm.pdf(np.arange(0,100,1), 0, 50)
+    # distribution = norm.pdf(np.arange(0,100,1), 100, 100)
+    # distribution = norm.pdf(np.arange(0,100,1), 50, 100)
     distribution = [i/np.sum(distribution) for i in distribution]
     
     if start_given is None:
@@ -56,8 +58,17 @@ def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N
             # print("time_1", time.time() - tt_0) 
         u = np.random.rand()
         tt = time.time() 
-        p_probs = sess.run(model.p_probs, feed_dict={model.inputs1:user_list, model.inputs2:y_list , model.batch_size: len(user_list), model.number: len(user_list)})
-        p_probs_next = sess.run(model.p_probs, feed_dict={model.inputs1:user_list, model.inputs2:cur_state , model.batch_size: len(user_list), model.number: len(user_list)})
+        if args.model == 'gcn':
+            feed_dict={model.inputs1:user_list, model.inputs2:y_list , model.batch_size: len(user_list), model.inputs:(feats[0], feats[1], feats[2])}
+            feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
+            p_probs = sess.run(model.p_probs, feed_dict=feed_dict)
+            
+            feed_dict={model.inputs1:user_list, model.inputs2:y_list , model.batch_size: len(user_list), model.inputs:(feats[0], feats[1], feats[2])}
+            feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
+            p_probs_next = sess.run(model.p_probs, feed_dict=feed_dict)
+        else:
+            p_probs = sess.run(model.p_probs, feed_dict={model.inputs1:user_list, model.inputs2:y_list , model.batch_size: len(user_list), model.number: len(user_list)})
+            p_probs_next = sess.run(model.p_probs, feed_dict={model.inputs1:user_list, model.inputs2:cur_state , model.batch_size: len(user_list), model.number: len(user_list)})
 
         A_a_list = np.multiply(np.array(p_probs), np.array(q_probs_next_list))/ np.multiply(np.array(p_probs_next), np.array(q_probs_list))
         next_state = list()
