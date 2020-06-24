@@ -1,6 +1,6 @@
 # MCNS
 
-[Arxiv](https://arxiv.org/abs/2005.09863)
+__[Arxiv]__(https://arxiv.org/abs/2005.09863)
 
 Understanding Negative Sampling in Graph Representation Learning.
 
