@@ -49,7 +49,7 @@ The trainable encoder of our code is based on [GraphSAGE](https://github.com/wil
 
 Please cite our paper if you find this code useful for your research:
 ```
-@misc{2005.09863,
+@misc{yang2020understanding,
 Author = {Zhen Yang and Ming Ding and Chang Zhou and Hongxia Yang and Jingren Zhou and Jie Tang},
 Title = {Understanding Negative Sampling in Graph Representation Learning},
 Year = {2020},
