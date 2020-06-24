@@ -22,6 +22,13 @@ We systematically analyze the role of negative sampling from the perspectives of
 #### For GraphSAGE:
 You can use ```$ ./experiments/graphsage/***.sh``` to train MCNS model on the recommendation task. For example, if you want to train on the Amazon dataset, you can run ```$ ./experiments/graphsage/amazon.sh``` or ```python main.py --input data/amazon/ --model graphsage_mean ``` to train MCNS model.
 
+#### For DeepWalk:
+You can use ```$ ./experiments/deepwalk/***.sh``` to train MCNS model on the recommendation task. For example, if you want to train on the ml-100k dataset, you can run ```$ ./experiments/deepwalk/ml.sh``` or ```python main.py --input data/ml-100k/ --model deepwalk ``` to train MCNS model.
+
+#### For GCN:
+You can use ```$ ./experiments/gcn.sh``` to train MCNS model on the ml-100k dataset for recommendation task. 
+
+
 ### Training on your own datasets
 if you want to train MCNS on your own dataset, you should prepare the following four files:
 * train.txt: Each line represents an edge ```<node1> <node2>```.
