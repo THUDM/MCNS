@@ -19,7 +19,8 @@ We systematically analyze the role of negative sampling from the perspectives of
 
 ## Training
 ### Training on the existing datasets
-You can use ```$ ./experiments/***.sh``` to train MCNS model on the recommendation task. For example, if you want to train on the Amazon dataset, you can run ```$ ./experiments/amazon.sh``` or ```python main.py --input data/amazon/``` to train MCNS model.
+For GraphSAGE:
+You can use ```$ ./experiments/graphsage/***.sh``` to train MCNS model on the recommendation task. For example, if you want to train on the Amazon dataset, you can run ```$ ./experiments/graphsage/amazon.sh``` or ```python main.py --model graphsage_mean --input data/amazon/``` to train MCNS model.
 
 ### Training on your own datasets
 if you want to train MCNS on your own dataset, you should prepare the following four files:
