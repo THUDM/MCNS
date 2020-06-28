@@ -49,9 +49,9 @@ def parse_args():
     parser.add_argument('--max_degree', type=int, default=300,
                         help='maximum node degree.')
     parser.add_argument('--user_num', type=int, default=0,
-                        help='number of negative items for each pair.')
+                        help='number of users.')
     parser.add_argument('--item_num', type=int, default=0,
-                        help='number of negative items for each pair.')
+                        help='number of items.')
     parser.add_argument('--weight_decay', type=float, default=0.0,
                         help='weight for l2 loss on embedding matrix.')
     parser.add_argument('--identity_dim', type=int, default=50,
