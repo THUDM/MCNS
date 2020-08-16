@@ -1,0 +1,221 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ArgumentParser	./evaluate.py	/^from argparse import ArgumentParser$/;"	i
+BATCH_SIZE	./config.py	/^BATCH_SIZE = 200  # load data batch size$/;"	v
+BipartiteEdgePredLayer	./discriminator.py	/^from prediction import BipartiteEdgePredLayer$/;"	i
+BipartiteEdgePredLayer	./prediction.py	/^class BipartiteEdgePredLayer(Layer):$/;"	c
+Dense	./aggregators.py	/^from layers import Dense, Layer$/;"	i
+Dense	./generator.py	/^from layers import Dense, Layer$/;"	i
+Dense	./layers.py	/^class Dense(Layer):$/;"	c
+Dis_data_loader	./load_data.py	/^class Dis_data_loader():$/;"	c
+Discriminator	./discriminator.py	/^class Discriminator(GeneralizedModel):$/;"	c
+EdgeMinibatchIterator	./gan.py	/^from minibatch import EdgeMinibatchIterator$/;"	i
+EdgeMinibatchIterator	./minibatch.py	/^class EdgeMinibatchIterator(object):$/;"	c
+F	./data/ml-100k1/4.py	/^F = 'adj_u_i_1.txt'$/;"	v
+GAN	./gan.py	/^class GAN(object):$/;"	c
+GCNAggregator	./aggregators.py	/^class GCNAggregator(Layer):$/;"	c
+Gen_data_loader	./load_data.py	/^class Gen_data_loader():$/;"	c
+GeneralizedModel	./discriminator.py	/^class GeneralizedModel(Model):$/;"	c
+Generator	./generator.py	/^class Generator(Layer):$/;"	c
+Layer	./aggregators.py	/^from layers import Dense, Layer$/;"	i
+Layer	./discriminator.py	/^from layers import Layer$/;"	i
+Layer	./generator.py	/^from layers import Dense, Layer$/;"	i
+Layer	./layers.py	/^class Layer(object):$/;"	c
+Layer	./prediction.py	/^from layers import Layer$/;"	i
+MaxPoolingAggregator	./aggregators.py	/^class MaxPoolingAggregator(Layer):$/;"	c
+MaxPoolingAggregator	./discriminator.py	/^from aggregators import MeanAggregator, SeqAggregator, MaxPoolingAggregator, MeanPoolingAggregator$/;"	i
+MeanAggregator	./aggregators.py	/^class MeanAggregator(Layer):$/;"	c
+MeanAggregator	./discriminator.py	/^from aggregators import MeanAggregator, SeqAggregator, MaxPoolingAggregator, MeanPoolingAggregator$/;"	i
+MeanPoolingAggregator	./aggregators.py	/^class MeanPoolingAggregator(Layer):$/;"	c
+MeanPoolingAggregator	./discriminator.py	/^from aggregators import MeanAggregator, SeqAggregator, MaxPoolingAggregator, MeanPoolingAggregator$/;"	i
+Model	./discriminator.py	/^class Model(object):$/;"	c
+SAGEInfo	./discriminator.py	/^SAGEInfo = namedtuple("SAGEInfo",$/;"	v
+SeqAggregator	./aggregators.py	/^class SeqAggregator(Layer):$/;"	c
+SeqAggregator	./discriminator.py	/^from aggregators import MeanAggregator, SeqAggregator, MaxPoolingAggregator, MeanPoolingAggregator$/;"	i
+UniformNeighborSampler	./discriminator.py	/^class UniformNeighborSampler(Layer):$/;"	c
+_LAYER_UIDS	./layers.py	/^_LAYER_UIDS = {}$/;"	v
+__call__	./layers.py	/^    def __call__(self, inputs):$/;"	m	class:Layer	file:
+__init__	./aggregators.py	/^    def __init__(self, input_dim, output_dim, model_size="small", neigh_input_dim=None,$/;"	m	class:MaxPoolingAggregator
+__init__	./aggregators.py	/^    def __init__(self, input_dim, output_dim, model_size="small", neigh_input_dim=None,$/;"	m	class:MeanPoolingAggregator
+__init__	./aggregators.py	/^    def __init__(self, input_dim, output_dim, model_size="small", neigh_input_dim=None,$/;"	m	class:SeqAggregator
+__init__	./aggregators.py	/^    def __init__(self, input_dim, output_dim, neigh_input_dim=None,$/;"	m	class:GCNAggregator
+__init__	./aggregators.py	/^    def __init__(self, input_dim, output_dim, neigh_input_dim=None,$/;"	m	class:MeanAggregator
+__init__	./discriminator.py	/^    def __init__(self, **kwargs):$/;"	m	class:GeneralizedModel
+__init__	./discriminator.py	/^    def __init__(self, **kwargs):$/;"	m	class:Model
+__init__	./discriminator.py	/^    def __init__(self, adj_info, **kwargs):$/;"	m	class:UniformNeighborSampler
+__init__	./discriminator.py	/^    def __init__(self, placeholders, features, adj, degrees, learning_rate,$/;"	m	class:Discriminator
+__init__	./gan.py	/^    def __init__(self):$/;"	m	class:GAN
+__init__	./generator.py	/^    def __init__(self, n_node, emb_dim, output_dim, dropout=0., **kwargs):$/;"	m	class:Generator
+__init__	./layers.py	/^    def __init__(self, **kwargs):$/;"	m	class:Layer
+__init__	./layers.py	/^    def __init__(self, input_dim, output_dim, dropout=0.,$/;"	m	class:Dense
+__init__	./load_data.py	/^    def __init__(self, batch_size):$/;"	m	class:Dis_data_loader
+__init__	./load_data.py	/^    def __init__(self, batch_size):$/;"	m	class:Gen_data_loader
+__init__	./minibatch.py	/^    def __init__(self, nodes, id2idx,$/;"	m	class:EdgeMinibatchIterator
+__init__	./prediction.py	/^    def __init__(self, input_dim1, input_dim2, placeholders, dropout=False, act=tf.nn.sigmoid,$/;"	m	class:BipartiteEdgePredLayer
+_accuracy	./discriminator.py	/^    def _accuracy(self):$/;"	m	class:Discriminator
+_accuracy	./discriminator.py	/^    def _accuracy(self):$/;"	m	class:Model
+_build	./discriminator.py	/^    def _build(self):$/;"	m	class:Discriminator
+_build	./discriminator.py	/^    def _build(self):$/;"	m	class:Model
+_call	./aggregators.py	/^    def _call(self, inputs):$/;"	m	class:GCNAggregator
+_call	./aggregators.py	/^    def _call(self, inputs):$/;"	m	class:MaxPoolingAggregator
+_call	./aggregators.py	/^    def _call(self, inputs):$/;"	m	class:MeanAggregator
+_call	./aggregators.py	/^    def _call(self, inputs):$/;"	m	class:MeanPoolingAggregator
+_call	./aggregators.py	/^    def _call(self, inputs):$/;"	m	class:SeqAggregator
+_call	./discriminator.py	/^    def _call(self, inputs):$/;"	m	class:UniformNeighborSampler
+_call	./layers.py	/^    def _call(self, inputs):$/;"	m	class:Dense
+_call	./layers.py	/^    def _call(self, inputs):$/;"	m	class:Layer
+_hinge_loss	./prediction.py	/^    def _hinge_loss(self, inputs1, inputs2, neg_samples, hard_neg_samples=None):$/;"	m	class:BipartiteEdgePredLayer
+_log_vars	./layers.py	/^    def _log_vars(self):$/;"	m	class:Layer
+_loss	./discriminator.py	/^    def _loss(self):$/;"	m	class:Discriminator
+_loss	./discriminator.py	/^    def _loss(self):$/;"	m	class:Model
+_remove_isolated	./data/ml-100k1/1.py	/^def _remove_isolated(edge_list):$/;"	f
+_remove_isolated	./minibatch.py	/^    def _remove_isolated(self, edge_list):$/;"	m	class:EdgeMinibatchIterator
+a	./data/ml-100k1/4.py	/^        a = sorted(d.items(), key=lambda x: x[0])$/;"	v
+a	./data/ml-100k1/4.py	/^a = sorted(d.items(), key=lambda x: x[0])$/;"	v
+a	./data/ml-100k1/5.py	/^            a = line.strip().split('\\t')$/;"	v
+absolute_import	./gan.py	/^from __future__ import print_function, absolute_import, division$/;"	i
+accuracy	./evaluate.py	/^    accuracy = accuracy()$/;"	v
+accuracy	./evaluate.py	/^def accuracy():$/;"	f
+accuracy_score	./evaluate.py	/^from sklearn.metrics import accuracy_score$/;"	i
+affinity	./prediction.py	/^    def affinity(self, inputs1, inputs2):$/;"	m	class:BipartiteEdgePredLayer
+aggregate	./discriminator.py	/^    def aggregate(self, samples, input_features, dims, num_samples, support_sizes, batch_size=None,$/;"	m	class:Discriminator
+args	./evaluate.py	/^    args = parser.parse_args()$/;"	v
+auc	./evaluate.py	/^    auc = auc()$/;"	v
+auc	./evaluate.py	/^def auc():$/;"	f
+b	./data/ml-100k1/5.py	/^            b = "\\t".join(a)$/;"	v
+batch_feed_dict	./minibatch.py	/^    def batch_feed_dict(self, batch_edges):$/;"	m	class:EdgeMinibatchIterator
+batch_feed_dict_embeddings	./minibatch.py	/^    def batch_feed_dict_embeddings(self, batch_edges):$/;"	m	class:EdgeMinibatchIterator
+batch_size	./config.py	/^batch_size = 512  # minibatch size$/;"	v
+batch_size_dis	./config.py	/^batch_size_dis = 64$/;"	v
+batch_size_gen	./config.py	/^batch_size_gen = 64$/;"	v
+build	./discriminator.py	/^    def build(self):$/;"	m	class:Discriminator
+build	./discriminator.py	/^    def build(self):$/;"	m	class:GeneralizedModel
+build	./discriminator.py	/^    def build(self):$/;"	m	class:Model
+build_discriminator	./gan.py	/^    def build_discriminator(self):$/;"	m	class:GAN
+build_generator	./gan.py	/^    def build_generator(self):$/;"	m	class:GAN
+config	./discriminator.py	/^import config$/;"	i
+config	./gan.py	/^import config$/;"	i
+config	./generator.py	/^import config$/;"	i
+config	./layers.py	/^import config$/;"	i
+construct_adj	./minibatch.py	/^    def construct_adj(self, filename):$/;"	m	class:EdgeMinibatchIterator
+construct_id_map	./load_data.py	/^def construct_id_map(filename):$/;"	f
+construct_node	./load_data.py	/^def construct_node(filename):$/;"	f
+conversion	./data/ml-100k1/1.py	/^conversion = lambda n: int(n)$/;"	v
+create_batches	./load_data.py	/^    def create_batches(self, negative_file):$/;"	m	class:Gen_data_loader
+d	./data/ml-100k1/4.py	/^d = defaultdict(list)$/;"	v
+data_dir	./evaluate.py	/^    data_dir = args.embed_dir$/;"	v
+dataset_dir	./evaluate.py	/^    dataset_dir = args.dataset_dir$/;"	v
+defaultdict	./data/ml-100k1/4.py	/^from collections import defaultdict$/;"	i
+defaultdict	./evaluate.py	/^from collections import defaultdict$/;"	i
+dim_1	./config.py	/^dim_1 = 128  # Size of output dim (final is 2x this, if using concat)$/;"	v
+dim_2	./config.py	/^dim_2 = 128  # Size of output dim (final is 2x this, if using concat)$/;"	v
+dis_epochs	./config.py	/^dis_epochs = 1 # 30$/;"	v
+discriminator	./gan.py	/^import discriminator$/;"	i
+division	./gan.py	/^from __future__ import print_function, absolute_import, division$/;"	i
+division	./layers.py	/^from __future__ import division$/;"	i
+division	./minibatch.py	/^from __future__ import division$/;"	i
+division	./prediction.py	/^from __future__ import division$/;"	i
+dropout	./config.py	/^dropout = 0.0$/;"	v
+edges	./data/ml-100k1/1.py	/^edges = walks$/;"	v
+embeds	./evaluate.py	/^    embeds = np.load(data_dir + "\/embedding.npy")$/;"	v
+end	./minibatch.py	/^    def end(self):$/;"	m	class:EdgeMinibatchIterator
+epochs	./config.py	/^epochs = 2  # 120$/;"	v
+file	./data/ml-100k1/4.py	/^    file = f.readlines()$/;"	v
+file	./data/ml-100k1/5.py	/^file = open('adj_test.txt', 'w')$/;"	v
+filename	./data/ml-100k1/4.py	/^filename = 'context_pairs.txt'$/;"	v
+filenames	./data/ml-100k1/5.py	/^filenames = ['adj_u_i_1.txt', 'adj_i_u_1.txt']$/;"	v
+gan	./gan.py	/^    gan = GAN()$/;"	v	class:GAN
+gen_epochs	./config.py	/^gen_epochs = 1# 30$/;"	v
+generator	./gan.py	/^import generator$/;"	i
+get_layer_uid	./layers.py	/^def get_layer_uid(layer_name=''):$/;"	f
+get_reward	./prediction.py	/^    def get_reward(self, inputs1, inputs2):$/;"	m	class:BipartiteEdgePredLayer
+glorot	./aggregators.py	/^from inits import glorot, zeros$/;"	i
+glorot	./inits.py	/^def glorot(shape, name=None):$/;"	f
+help	./evaluate.py	/^                        help="Path to directory containing the learned node embeddings. Set to 'feat' for raw features.")$/;"	v
+identity_dim	./config.py	/^identity_dim = 50  # use identity embedding features of that dimension$/;"	v
+incremental_embed_feed_dict	./minibatch.py	/^    def incremental_embed_feed_dict(self, size, iter_num):$/;"	m	class:EdgeMinibatchIterator
+iter	./data/ml-100k1/5.py	/^            iter = iter + 1$/;"	v
+iter	./data/ml-100k1/5.py	/^        iter = 0$/;"	v
+lambda_gen	./config.py	/^lambda_gen = 0.0  # l2 loss regulation weight for the generator$/;"	v
+load	./discriminator.py	/^    def load(self, sess=None):$/;"	m	class:Model
+load_model	./config.py	/^load_model = True$/;"	v
+load_test_embedding	./evaluate.py	/^def load_test_embedding(filename,embeddings):$/;"	f
+load_train_data	./load_data.py	/^    def load_train_data(self, positive_file):$/;"	m	class:Dis_data_loader
+load_walks	./load_data.py	/^def load_walks():$/;"	f
+loss	./prediction.py	/^    def loss(self, inputs1, inputs2, neg_samples):$/;"	m	class:BipartiteEdgePredLayer
+lr_dis	./config.py	/^lr_dis = 1e-3$/;"	v
+lr_gen	./config.py	/^lr_gen = 1e-3$/;"	v
+map_score	./evaluate.py	/^    map_score = mean_AP(test_edges_pos, test_edges_neg)$/;"	v
+max_degree	./config.py	/^max_degree = 100  # maximum node degree$/;"	v
+max_total_steps	./config.py	/^max_total_steps = 10000$/;"	v
+mean_AP	./evaluate.py	/^def mean_AP(test_edges_pos, test_edges_neg):$/;"	f
+model_log	./config.py	/^model_log = ".\/log\/"$/;"	v
+model_size	./config.py	/^model_size = "small"$/;"	v
+mrr	./evaluate.py	/^    mrr = mrr()$/;"	v
+mrr	./evaluate.py	/^def mrr():$/;"	f
+n_emb	./config.py	/^n_emb = 256 $/;"	v
+namedtuple	./discriminator.py	/^from collections import namedtuple$/;"	i
+neg_sample_size	./config.py	/^neg_sample_size = 20  # number of negative samples for randomly sampling$/;"	v
+neg_sample_size	./config.py	/^neg_sample_size = 20$/;"	v
+next_batch	./load_data.py	/^    def next_batch(self):$/;"	m	class:Dis_data_loader
+next_batch	./load_data.py	/^    def next_batch(self):$/;"	m	class:Gen_data_loader
+next_minibatch_feed_dict	./minibatch.py	/^    def next_minibatch_feed_dict(self):$/;"	m	class:EdgeMinibatchIterator
+np	./data/ml-100k1/1.py	/^import numpy as np$/;"	i
+np	./evaluate.py	/^import numpy as np$/;"	i
+np	./generator.py	/^import numpy as np$/;"	i
+np	./inits.py	/^import numpy as np$/;"	i
+np	./load_data.py	/^import numpy as np$/;"	i
+np	./minibatch.py	/^import numpy as np$/;"	i
+os	./gan.py	/^import os$/;"	i
+parser	./evaluate.py	/^    parser = ArgumentParser("Run evaluation.")$/;"	v
+pre_epochs	./config.py	/^pre_epochs = 1  # discriminator pre-training epochs$/;"	v
+predict	./discriminator.py	/^    def predict(self):$/;"	m	class:Model
+print_every	./config.py	/^print_every = 50$/;"	v
+print_function	./evaluate.py	/^from __future__ import print_function$/;"	i
+print_function	./gan.py	/^from __future__ import print_function, absolute_import, division$/;"	i
+print_function	./layers.py	/^from __future__ import print_function$/;"	i
+print_function	./minibatch.py	/^from __future__ import print_function$/;"	i
+print_function	./prediction.py	/^from __future__ import print_function$/;"	i
+read_edges_from_file	./load_data.py	/^def read_edges_from_file(filename):$/;"	f
+read_nodes_from_file	./load_data.py	/^def read_nodes_from_file(filename):$/;"	f
+reset_pointer	./load_data.py	/^    def reset_pointer(self):$/;"	m	class:Dis_data_loader
+reset_pointer	./load_data.py	/^    def reset_pointer(self):$/;"	m	class:Gen_data_loader
+roc_auc_score	./evaluate.py	/^from sklearn.metrics import roc_auc_score$/;"	i
+sample	./discriminator.py	/^    def sample(self, inputs, layer_infos, batch_size=None):$/;"	m	class:Discriminator
+samples_1	./config.py	/^samples_1 = 25  # number of samples in layer 1$/;"	v
+samples_2	./config.py	/^samples_2 = 10  # number of samples in layer 2$/;"	v
+save	./discriminator.py	/^    def save(self, sess=None):$/;"	m	class:Model
+save_embeddings	./config.py	/^save_embeddings = True$/;"	v
+save_embeddings	./gan.py	/^    def save_embeddings(self, sess, model, minibatch_iter, size, out_dir, mod=""):$/;"	m	class:GAN
+setting	./evaluate.py	/^    setting = args.setting$/;"	v
+shuffle	./minibatch.py	/^    def shuffle(self):$/;"	m	class:EdgeMinibatchIterator
+str_list_to_int	./load_data.py	/^def str_list_to_int(str_list):$/;"	f
+test_edges	./evaluate.py	/^    test_edges = test_edges_pos + test_edges_neg$/;"	v
+test_edges_neg	./evaluate.py	/^    test_edges_neg = read_edges_from_file(test_file_neg)$/;"	v
+test_edges_pos	./evaluate.py	/^    test_edges_pos = read_edges_from_file(test_file_pos)$/;"	v
+test_embeds	./evaluate.py	/^    test_embeds = load_test_embedding(data_dir + "\/embedding.txt", embeds)$/;"	v
+test_file	./evaluate.py	/^test_file = 'data\/ml-100k\/test_pairs_all.txt'$/;"	v
+test_file_neg	./evaluate.py	/^test_file_neg = 'data\/ml-100k\/test_pairs_neg.txt'$/;"	v
+test_file_pos	./evaluate.py	/^test_file_pos = 'data\/ml-100k\/test_pairs.txt'$/;"	v
+tf	./aggregators.py	/^import tensorflow as tf$/;"	i
+tf	./discriminator.py	/^import tensorflow as tf$/;"	i
+tf	./gan.py	/^import tensorflow as tf$/;"	i
+tf	./generator.py	/^import tensorflow as tf$/;"	i
+tf	./inits.py	/^import tensorflow as tf$/;"	i
+tf	./layers.py	/^import tensorflow as tf$/;"	i
+tf	./prediction.py	/^import tensorflow as tf$/;"	i
+top_k	./evaluate.py	/^def top_k(scores, k):$/;"	f
+train	./gan.py	/^    def train(self):$/;"	m	class:GAN
+train_edges	./data/ml-100k1/1.py	/^train_edges = _remove_isolated(train_edges)$/;"	v
+train_edges	./data/ml-100k1/1.py	/^train_edges = np.random.permutation(edges)$/;"	v
+userid	./data/ml-100k1/3.py	/^			userid= line.strip()$/;"	v
+walks	./data/ml-100k1/1.py	/^walks = []$/;"	v
+weight_decay	./config.py	/^weight_decay = 0.0$/;"	v
+zeros	./aggregators.py	/^from inits import glorot, zeros$/;"	i
+zeros	./inits.py	/^def zeros(shape, name=None):$/;"	f
+zeros	./layers.py	/^from inits import zeros$/;"	i
+zeros	./prediction.py	/^from inits import zeros$/;"	i
