@@ -1,2 +1,0 @@
-test_auc= 0.73421 test_f1= 0.64236
-lr=0.8 SGD init=0.01
