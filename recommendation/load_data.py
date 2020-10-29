@@ -29,7 +29,10 @@ class Data_Loader():
                     break
                 self.data.extend(user_item_pairs)
         self.data = np.array(self.data)
+        print("self.data", self.data.shape)
+        print("self.data", list(self.data))
         self.num_batch = int(self.data.shape[0] / self.batch_size)
+        print("self.num_batch", self.num_batch)
         start_index = self.num_batch * self.batch_size
         end_index = start_index + self.batch_size
         if start_index < len(positive_examples):
@@ -43,6 +46,7 @@ class Data_Loader():
         else:
             self.data = self.data[:start_index]
         self.data_D = np.split(self.data, self.num_batch, 0)
+        print("self.data_D", self.data_D)
         self.pointer = 0
 
     def next_batch(self):
