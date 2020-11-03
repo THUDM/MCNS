@@ -16,23 +16,8 @@ class Data_Loader():
         self.batch_size = batch_size
 
     def load_train_data(self, positive_examples, args):
-        train_data = defaultdict(list)
-        for edge in positive_examples:
-            train_data[edge[0]].append(edge[1])
-        self.data = []
-        user_list = list(train_data.keys())
-        while len(self.data) < len(positive_examples):
-            np.random.shuffle(user_list)
-            for user_id in user_list:
-                user_item_pairs = User_Seq_epoch(self.G, user_id, train_data, args)
-                if len(user_item_pairs) == 0:
-                    break
-                self.data.extend(user_item_pairs)
-        self.data = np.array(self.data)
-        print("self.data", self.data.shape)
-        print("self.data", list(self.data))
-        self.num_batch = int(self.data.shape[0] / self.batch_size)
-        print("self.num_batch", self.num_batch)
+        self.data = np.array(positive_examples)  
+        self.num_batch = int(len(positive_examples) / self.batch_size)
         start_index = self.num_batch * self.batch_size
         end_index = start_index + self.batch_size
         if start_index < len(positive_examples):
@@ -45,9 +30,10 @@ class Data_Loader():
                 self.num_batch = self.num_batch + 1
         else:
             self.data = self.data[:start_index]
+        self.data = np.random.permutation(self.data)
         self.data_D = np.split(self.data, self.num_batch, 0)
-        print("self.data_D", self.data_D)
         self.pointer = 0
+
 
     def next_batch(self):
 
