@@ -63,7 +63,7 @@ def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N
             feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
             p_probs = sess.run(model.p_probs, feed_dict=feed_dict)
             
-            feed_dict={model.inputs1:user_list, model.inputs2:y_list , model.batch_size: len(user_list), model.inputs:(feats[0], feats[1], feats[2])}
+            feed_dict={model.inputs1:user_list, model.inputs2:cur_state , model.batch_size: len(user_list), model.inputs:(feats[0], feats[1], feats[2])}
             feed_dict.update({placeholders['support'][i]: support[i] for i in range(len(support))})
             p_probs_next = sess.run(model.p_probs, feed_dict=feed_dict)
         else:
