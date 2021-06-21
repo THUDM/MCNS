@@ -76,7 +76,7 @@ def negative_sampling(model, sess, candidates, start_given, q_1_dict, N_steps, N
         if count > N_steps:
             for i in list(range(len(cur_state))):
                 if y_list[i] >= args.user_num:
-                    walks[user_list[i]].append(y_list[i])
+                    walks[user_list[i]].append(cur_state[i])
                 else:
                     next_state.append(y_list[i])
                     next_user.append(user_list[i])
